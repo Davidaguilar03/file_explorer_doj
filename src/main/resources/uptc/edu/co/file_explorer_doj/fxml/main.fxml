@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="uptc.edu.co.file_explorer_doj.controller.MainController"
+            prefHeight="700.0" prefWidth="1200.0">
+
+    <top>
+        <VBox>
+            <MenuBar>
+                <Menu text="Archivo">
+                    <MenuItem text="Nueva carpeta"   onAction="#handleNewFolder"/>
+                    <MenuItem text="Nuevo archivo"   onAction="#handleNewFile"/>
+                    <SeparatorMenuItem/>
+                    <MenuItem text="Salir"           onAction="#handleExit"/>
+                </Menu>
+                <Menu text="Editar">
+                    <MenuItem text="Copiar         Ctrl+C" onAction="#handleCopy"/>
+                    <MenuItem text="Cortar         Ctrl+X" onAction="#handleCut"/>
+                    <MenuItem text="Pegar          Ctrl+V" onAction="#handlePaste"/>
+                    <SeparatorMenuItem/>
+                    <MenuItem text="Eliminar       Del"    onAction="#handleDelete"/>
+                    <MenuItem text="Renombrar      F2"     onAction="#handleRename"/>
+                    <SeparatorMenuItem/>
+                    <MenuItem text="Seleccionar todo  Ctrl+A" onAction="#handleSelectAll"/>
+                </Menu>
+                <Menu text="Ver">
+                    <MenuItem text="Actualizar     F5"     onAction="#handleRefresh"/>
+                    <SeparatorMenuItem/>
+                    <CheckMenuItem fx:id="menuShowHidden" text="Mostrar archivos ocultos" onAction="#handleToggleHidden"/>
+                </Menu>
+                <Menu text="Ayuda">
+                    <MenuItem text="Acerca de"     onAction="#handleAbout"/>
+                </Menu>
+            </MenuBar>
+
+            <ToolBar>
+                <Button fx:id="btnBack"    text="◀"  onAction="#goBack"    prefWidth="34" styleClass="nav-btn" disable="true"/>
+                <Button fx:id="btnForward" text="▶"  onAction="#goForward" prefWidth="34" styleClass="nav-btn" disable="true"/>
+                <Button fx:id="btnUp"      text="▲"  onAction="#goUp"      prefWidth="34" styleClass="nav-btn"/>
+                <Separator/>
+                <TextField fx:id="addressBar" prefWidth="680" onAction="#handleAddressEnter"
+                           promptText="Ruta del directorio..." HBox.hgrow="ALWAYS"/>
+                <Separator/>
+                <Button text="Buscar" onAction="#handleSearch" styleClass="nav-btn"/>
+            </ToolBar>
+        </VBox>
+    </top>
+
+    <center>
+        <SplitPane fx:id="splitPane" dividerPositions="0.22">
+            <TreeView fx:id="directoryTree" prefWidth="230" minWidth="120"/>
+            <TableView fx:id="fileTable">
+                <columns>
+                    <TableColumn fx:id="colIcon" text=""                     prefWidth="55"  minWidth="55"  maxWidth="55"  sortable="false" resizable="false"/>
+                    <TableColumn fx:id="colName" text="Nombre"               prefWidth="290"/>
+                    <TableColumn fx:id="colSize" text="Tamaño"               prefWidth="100"/>
+                    <TableColumn fx:id="colType" text="Tipo"                 prefWidth="185"/>
+                    <TableColumn fx:id="colDate" text="Fecha de modificación" prefWidth="165"/>
+                </columns>
+                <placeholder><Label text="Carpeta vacía"/></placeholder>
+            </TableView>
+        </SplitPane>
+    </center>
+
+    <bottom>
+        <HBox fx:id="statusBar" spacing="10" alignment="CENTER_LEFT" styleClass="status-bar">
+            <padding><Insets top="4" bottom="4" left="10" right="10"/></padding>
+            <Label fx:id="statusPath" text="Listo" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+            <Separator orientation="VERTICAL"/>
+            <Label fx:id="statusItems" text="0 elementos" minWidth="100"/>
+            <Separator orientation="VERTICAL"/>
+            <Label fx:id="statusDisk"  text=""            minWidth="200"/>
+        </HBox>
+    </bottom>
+</BorderPane>

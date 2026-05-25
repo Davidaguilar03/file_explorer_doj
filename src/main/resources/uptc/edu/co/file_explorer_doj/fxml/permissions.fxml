@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="uptc.edu.co.file_explorer_doj.controller.PermissionsController"
+      prefWidth="480" prefHeight="340" spacing="10">
+    <padding><Insets top="15" bottom="15" left="15" right="15"/></padding>
+
+    <Label text="Archivo / Carpeta:" styleClass="section-header"/>
+    <Label fx:id="fileLabel" wrapText="true" styleClass="path-label"/>
+
+    <Separator/>
+
+    <Label text="Atributos actuales (attrib):" styleClass="section-header"/>
+    <TextArea fx:id="attribOutput" prefHeight="80" editable="false" wrapText="true"/>
+
+    <Separator/>
+
+    <Label text="Modificar atributos:" styleClass="section-header"/>
+    <CheckBox fx:id="cbReadOnly" text="Solo lectura  (+R / -R)"/>
+    <CheckBox fx:id="cbHidden"   text="Oculto        (+H / -H)"/>
+
+    <VBox VBox.vgrow="ALWAYS"/>
+
+    <HBox spacing="10" alignment="CENTER_RIGHT">
+        <Button text="Aplicar" onAction="#onApply" prefWidth="80"/>
+        <Button text="Cerrar"  onAction="#onClose" prefWidth="80"/>
+    </HBox>
+</VBox>

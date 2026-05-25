@@ -1,0 +1,248 @@
+/* ============================================================
+   File Explorer — Dark Theme
+   ============================================================ */
+
+.root {
+    -fx-base:                       #2d2d2d;
+    -fx-background:                 #1e1e1e;
+    -fx-control-inner-background:   #252526;
+    -fx-control-inner-background-alt: #2a2a2b;
+    -fx-accent:                     #0078d4;
+    -fx-focus-color:                #0078d4;
+    -fx-faint-focus-color:          #0078d425;
+    -fx-selection-bar:              #094771;
+    -fx-selection-bar-non-focused:  #37373d;
+    -fx-text-base-color:            #cccccc;
+    -fx-light-text-color:           #cccccc;
+    -fx-mid-text-color:             #999999;
+}
+
+/* --- Labels ------------------------------------------------ */
+.label { -fx-text-fill: #cccccc; }
+
+/* --- Buttons ----------------------------------------------- */
+.button {
+    -fx-background-color: #3c3c3c;
+    -fx-text-fill:        #cccccc;
+    -fx-border-color:     #555555;
+    -fx-border-width:     1;
+    -fx-border-radius:    3;
+    -fx-background-radius: 3;
+    -fx-padding:          5 12 5 12;
+    -fx-cursor:           hand;
+}
+.button:hover   { -fx-background-color: #505050; }
+.button:pressed { -fx-background-color: #0060aa; -fx-text-fill: white; }
+.button:disabled { -fx-opacity: 0.45; }
+
+.nav-btn {
+    -fx-background-color: #2d2d2d;
+    -fx-border-color:     transparent;
+    -fx-min-width:        34;
+    -fx-min-height:       28;
+    -fx-padding:          4 8 4 8;
+    -fx-font-size:        13px;
+}
+.nav-btn:hover   { -fx-background-color: #3c3c3c; }
+.nav-btn:pressed { -fx-background-color: #094771; -fx-text-fill: white; }
+
+/* --- Text fields ------------------------------------------- */
+.text-field {
+    -fx-background-color: #1e1e1e;
+    -fx-text-fill:        #cccccc;
+    -fx-border-color:     #555555;
+    -fx-border-width:     1;
+    -fx-border-radius:    3;
+    -fx-background-radius: 3;
+    -fx-padding:          5 8 5 8;
+    -fx-prompt-text-fill: #666666;
+}
+.text-field:focused { -fx-border-color: #0078d4; -fx-border-width: 1.5; }
+
+/* --- Menu bar ---------------------------------------------- */
+.menu-bar {
+    -fx-background-color: #2d2d2d;
+    -fx-border-color:     transparent transparent #3a3a3a transparent;
+    -fx-border-width:     0 0 1 0;
+    -fx-padding:          2 6 2 6;
+}
+.menu-bar .menu          { -fx-background-color: transparent; -fx-text-fill: #cccccc; }
+.menu-bar .menu > .label { -fx-text-fill: #cccccc; }
+.menu-bar .menu:hover,
+.menu-bar .menu:showing  { -fx-background-color: #094771; }
+.menu-bar .menu:hover > .label,
+.menu-bar .menu:showing > .label { -fx-text-fill: white; }
+
+/* --- Context / popup menus --------------------------------- */
+.context-menu {
+    -fx-background-color: #252526;
+    -fx-border-color:     #454545;
+    -fx-border-width:     1;
+    -fx-padding:          3 0 3 0;
+    -fx-effect:           dropshadow(gaussian, rgba(0,0,0,0.55), 10, 0, 2, 4);
+}
+.menu-item                   { -fx-background-color: transparent; -fx-padding: 5 20 5 12; }
+.menu-item > .label          { -fx-text-fill: #cccccc; }
+.menu-item:hover,
+.menu-item:focused           { -fx-background-color: #094771; }
+.menu-item:hover > .label,
+.menu-item:focused > .label  { -fx-text-fill: white; }
+.menu-item:disabled > .label { -fx-text-fill: #555555; }
+.check-menu-item > .check    { -fx-background-color: #0078d4; }
+
+/* --- Toolbar ----------------------------------------------- */
+.tool-bar {
+    -fx-background-color: #252526;
+    -fx-border-color:     transparent transparent #3a3a3a transparent;
+    -fx-border-width:     0 0 1 0;
+    -fx-padding:          4 8 4 8;
+    -fx-spacing:          4;
+}
+
+/* --- Separator --------------------------------------------- */
+.separator .line { -fx-border-color: #454545; }
+.separator:vertical .line { -fx-border-color: #454545; }
+
+/* --- Split pane -------------------------------------------- */
+.split-pane               { -fx-background-color: #1e1e1e; -fx-padding: 0; }
+.split-pane-divider       { -fx-background-color: #3a3a3a; -fx-padding: 0 1 0 1; }
+.split-pane-divider:hover { -fx-background-color: #0078d4; }
+
+/* --- Tree view --------------------------------------------- */
+.tree-view {
+    -fx-background-color: #252526;
+    -fx-border-color:     transparent #3a3a3a transparent transparent;
+    -fx-border-width:     0 1 0 0;
+}
+.tree-cell {
+    -fx-background-color: transparent;
+    -fx-text-fill:        #cccccc;
+    -fx-padding:          3 6 3 6;
+}
+.tree-cell:hover    { -fx-background-color: #2a2d2e; }
+.tree-cell:selected { -fx-background-color: #37373d; -fx-text-fill: #cccccc; }
+.tree-cell:selected:focused { -fx-background-color: #094771; -fx-text-fill: white; }
+.tree-cell .arrow   { -fx-background-color: #888888; }
+
+/* --- Table view -------------------------------------------- */
+.table-view {
+    -fx-background-color:    #1e1e1e;
+    -fx-border-color:        transparent;
+    -fx-table-cell-border-color: transparent;
+}
+.table-view .column-header-background {
+    -fx-background-color: #2d2d2d;
+    -fx-border-color: transparent transparent #3a3a3a transparent;
+    -fx-border-width: 0 0 1 0;
+}
+.table-view .column-header {
+    -fx-background-color: #2d2d2d;
+    -fx-border-color: transparent #404040 transparent transparent;
+    -fx-border-width: 0 1 0 0;
+}
+.table-view .column-header .label {
+    -fx-text-fill:   #999999;
+    -fx-font-size:   12px;
+    -fx-font-weight: bold;
+    -fx-alignment:   CENTER-LEFT;
+    -fx-padding:     0 0 0 4;
+}
+.table-view .column-header:hover { -fx-background-color: #383838; }
+
+.table-row-cell {
+    -fx-background-color: #1e1e1e;
+    -fx-border-color:     transparent;
+    -fx-cell-size:        26px;
+}
+.table-row-cell:odd          { -fx-background-color: #252526; }
+.table-row-cell:hover        { -fx-background-color: #2a2d2e; }
+.table-row-cell:selected     { -fx-background-color: #37373d; }
+.table-row-cell:selected:focused { -fx-background-color: #094771; }
+.table-row-cell:selected .table-cell { -fx-text-fill: white; }
+
+.table-cell {
+    -fx-text-fill:   #cccccc;
+    -fx-padding:     3 8 3 8;
+    -fx-border-color: transparent;
+    -fx-alignment:   CENTER-LEFT;
+    -fx-font-size:   13px;
+}
+.table-view .placeholder > .label { -fx-text-fill: #555555; }
+
+/* Faint sort arrows */
+.table-view .arrow               { -fx-background-color: #777777; }
+.table-view .column-resize-line  { -fx-background-color: #0078d4; }
+
+/* --- Scroll bars ------------------------------------------- */
+.scroll-bar:vertical, .scroll-bar:horizontal { -fx-background-color: #1e1e1e; }
+.scroll-bar .track                           { -fx-background-color: #1e1e1e; }
+.scroll-bar .thumb          { -fx-background-color: #424242; -fx-background-radius: 3; }
+.scroll-bar .thumb:hover    { -fx-background-color: #6a6a6a; }
+.scroll-bar .thumb:pressed  { -fx-background-color: #0078d4; }
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button { -fx-background-color: #1e1e1e; -fx-padding: 4; }
+.scroll-bar .increment-arrow,
+.scroll-bar .decrement-arrow  { -fx-background-color: #555555; -fx-padding: 3; }
+
+/* --- Status bar -------------------------------------------- */
+.status-bar {
+    -fx-background-color: #007acc;
+}
+.status-bar .label {
+    -fx-text-fill:  white;
+    -fx-font-size:  12px;
+}
+.status-bar .separator .line {
+    -fx-border-color: rgba(255,255,255,0.35);
+}
+
+/* --- Check box --------------------------------------------- */
+.check-box       { -fx-text-fill: #cccccc; }
+.check-box .box  { -fx-background-color: #2d2d2d; -fx-border-color: #555555; -fx-border-radius: 2; }
+.check-box:selected .box { -fx-background-color: #0078d4; -fx-border-color: #0078d4; }
+.check-box .mark { -fx-background-color: white; }
+
+/* --- Text area --------------------------------------------- */
+.text-area             { -fx-background-color: #1e1e1e; -fx-text-fill: #cccccc; -fx-border-color: #404040; -fx-border-radius: 3; }
+.text-area .content    { -fx-background-color: #1e1e1e; }
+
+/* --- Progress bar ------------------------------------------ */
+.progress-bar .track   { -fx-background-color: #2d2d2d; -fx-border-color: #404040; -fx-border-radius: 3; }
+.progress-bar .bar     { -fx-background-color: #0078d4; -fx-background-radius: 3; }
+.progress-bar:indeterminate .bar { -fx-background-color: linear-gradient(to right, #0078d4 0%, #50b8ff 50%, #0078d4 100%); }
+
+/* --- List view --------------------------------------------- */
+.list-view       { -fx-background-color: #1e1e1e; -fx-border-color: #404040; }
+.list-cell       { -fx-background-color: transparent; -fx-text-fill: #cccccc; -fx-padding: 5 10 5 10; -fx-font-size: 12px; }
+.list-cell:odd   { -fx-background-color: #252526; }
+.list-cell:selected { -fx-background-color: #094771; -fx-text-fill: white; }
+.list-cell:hover { -fx-background-color: #2a2d2e; }
+
+/* --- Dialogs ----------------------------------------------- */
+.dialog-pane                                { -fx-background-color: #2d2d2d; }
+.dialog-pane > .content.label               { -fx-text-fill: #cccccc; }
+.dialog-pane .header-panel                  { -fx-background-color: #252526; }
+.dialog-pane .header-panel > .label         { -fx-text-fill: #cccccc; -fx-font-size: 14px; }
+.dialog-pane .button-bar > .container > .button {
+    -fx-background-color: #3c3c3c;
+    -fx-text-fill: #cccccc;
+    -fx-border-color: #555555;
+    -fx-border-width: 1;
+    -fx-border-radius: 3;
+}
+.dialog-pane .button-bar > .container > .button:hover {
+    -fx-background-color: #505050;
+}
+.dialog-pane .button-bar > .container > .button:default {
+    -fx-background-color: #0078d4;
+    -fx-text-fill: white;
+    -fx-border-color: #0078d4;
+}
+.dialog-pane .text-field { -fx-background-color: #1e1e1e; -fx-text-fill: #cccccc; -fx-border-color: #555555; }
+
+/* --- Custom classes ---------------------------------------- */
+.section-header { -fx-text-fill: #999999; -fx-font-size: 11px; -fx-font-weight: bold; }
+.path-label     { -fx-text-fill: #cccccc; -fx-font-family: "Consolas", monospace; -fx-font-size: 12px; }
+
+/* --- Tooltip ----------------------------------------------- */
+.tooltip { -fx-background-color: #252526; -fx-text-fill: #cccccc; -fx-border-color: #555555; -fx-border-width: 1; }

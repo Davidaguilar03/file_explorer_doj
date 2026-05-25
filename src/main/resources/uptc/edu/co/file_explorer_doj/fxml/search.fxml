@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="uptc.edu.co.file_explorer_doj.controller.SearchController"
+      prefWidth="640" prefHeight="480" spacing="10">
+    <padding><Insets top="15" bottom="15" left="15" right="15"/></padding>
+
+    <Label fx:id="searchInLabel" text="Buscar en: " styleClass="section-header"/>
+
+    <HBox spacing="8" alignment="CENTER_LEFT">
+        <TextField fx:id="searchField" promptText="Nombre del archivo o carpeta..."
+                   HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+        <Button fx:id="btnSearch" text="Buscar" onAction="#onSearch" prefWidth="80"/>
+    </HBox>
+
+    <ProgressBar fx:id="progressBar" prefWidth="Infinity" maxWidth="Infinity" visible="false"/>
+
+    <Label fx:id="statusLabel" text="" styleClass="section-header"/>
+
+    <ListView fx:id="resultList" VBox.vgrow="ALWAYS" maxHeight="Infinity"/>
+
+    <HBox alignment="CENTER_RIGHT">
+        <Button text="Cerrar" onAction="#onClose" prefWidth="80"/>
+    </HBox>
+</VBox>
