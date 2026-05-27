@@ -45,6 +45,8 @@
                            promptText="Ruta del directorio..." HBox.hgrow="ALWAYS"/>
                 <Separator/>
                 <Button text="Buscar" onAction="#handleSearch" styleClass="nav-btn"/>
+                <Separator/>
+                <Button fx:id="btnTheme" text="☀" onAction="#handleToggleTheme" styleClass="nav-btn" prefWidth="34" style="-fx-font-size: 15px;"/>
             </ToolBar>
         </VBox>
     </top>

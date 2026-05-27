@@ -26,7 +26,7 @@ public class FileItem {
         if (file.isDirectory()) {
             this.size = new SimpleStringProperty("");
             this.type = new SimpleStringProperty("Carpeta de archivos");
-            this.icon = new SimpleStringProperty("[DIR]");
+            this.icon = new SimpleStringProperty("📁");
         } else {
             this.size = new SimpleStringProperty(formatSize(file.length()));
             this.type = new SimpleStringProperty(getFileType(file.getName()));
@@ -71,21 +71,28 @@ public class FileItem {
 
     private String getFileIcon(String filename) {
         int dot = filename.lastIndexOf('.');
-        if (dot < 0) return "[F]";
+        if (dot < 0) return "📄";
         return switch (filename.substring(dot + 1).toLowerCase()) {
-            case "jpg", "jpeg", "png", "gif", "bmp", "webp", "svg" -> "[IMG]";
-            case "mp3", "wav", "flac", "ogg", "aac"                -> "[AUD]";
-            case "mp4", "avi", "mkv", "mov", "wmv"                 -> "[VID]";
-            case "zip", "rar", "7z", "tar", "gz"                   -> "[ZIP]";
-            case "exe", "msi"                                       -> "[EXE]";
-            case "pdf"                                              -> "[PDF]";
-            case "txt", "log"                                       -> "[TXT]";
-            case "java", "py", "js", "ts", "css", "html", "htm", "xml", "json" -> "[SRC]";
-            case "docx", "doc"                                      -> "[DOC]";
-            case "xlsx", "xls"                                      -> "[XLS]";
-            case "pptx", "ppt"                                      -> "[PPT]";
-            case "bat", "cmd"                                       -> "[CMD]";
-            default -> "[F]";
+            case "jpg", "jpeg", "png", "gif", "bmp", "webp", "svg" -> "🖼";
+            case "mp3", "wav", "flac", "ogg", "aac"                -> "🎵";
+            case "mp4", "avi", "mkv", "mov", "wmv"                 -> "🎬";
+            case "zip", "rar", "7z", "tar", "gz"                   -> "📦";
+            case "exe", "msi"                                       -> "⚙";
+            case "pdf"                                              -> "📕";
+            case "txt", "log"                                       -> "📝";
+            case "java"                                             -> "☕";
+            case "py"                                               -> "🐍";
+            case "js", "ts"                                         -> "📜";
+            case "html", "htm"                                      -> "🌐";
+            case "css"                                              -> "🎨";
+            case "xml", "json"                                      -> "📋";
+            case "docx", "doc"                                      -> "📘";
+            case "xlsx", "xls"                                      -> "📊";
+            case "pptx", "ppt"                                      -> "📑";
+            case "bat", "cmd"                                       -> "🖥";
+            case "dll"                                              -> "🔧";
+            case "class"                                            -> "☕";
+            default -> "📄";
         };
     }
 
