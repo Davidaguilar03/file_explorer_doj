@@ -43,10 +43,15 @@ public class MainController {
     @FXML private Label                       statusItems;
     @FXML private Label                       statusDisk;
     @FXML private CheckMenuItem               menuShowHidden;
+    @FXML private Button                      btnTheme;
 
     // -------------------------------------------------------------------------
     // State
     // -------------------------------------------------------------------------
+
+    private static final String DARK_CSS  = "/uptc/edu/co/file_explorer_doj/css/theme.css";
+    private static final String LIGHT_CSS = "/uptc/edu/co/file_explorer_doj/css/theme-light.css";
+    private boolean darkTheme = true;
 
     private String currentPath;
     private final Deque<String> backHistory    = new ArrayDeque<>();
@@ -91,7 +96,7 @@ public class MainController {
             protected void updateItem(String v, boolean empty) {
                 super.updateItem(v, empty);
                 setText(empty || v == null ? null : v);
-                setStyle("-fx-font-family: monospace; -fx-alignment: CENTER;");
+                setStyle("-fx-font-family: 'Segoe UI Emoji', 'Apple Color Emoji', sans-serif; -fx-font-size: 16px; -fx-alignment: CENTER;");
             }
         });
 
@@ -537,6 +542,18 @@ public class MainController {
     @FXML void handleSelectAll()    { fileTable.getSelectionModel().selectAll(); }
     @FXML void handleExit()         { Platform.exit(); }
 
+    @FXML void handleToggleTheme() {
+        darkTheme = !darkTheme;
+        Scene scene = addressBar.getScene();
+        scene.getStylesheets().clear();
+        scene.getStylesheets().add(getClass().getResource(currentThemeCss()).toExternalForm());
+        btnTheme.setText(darkTheme ? "☀" : "☾");
+    }
+
+    private String currentThemeCss() {
+        return darkTheme ? DARK_CSS : LIGHT_CSS;
+    }
+
     @FXML void handleToggleHidden() {
         showHidden = menuShowHidden.isSelected();
         refreshTable();
@@ -630,15 +647,13 @@ public class MainController {
 
     private void applyDialogStyle(DialogPane pane) {
         try {
-            pane.getStylesheets().add(
-                getClass().getResource("/uptc/edu/co/file_explorer_doj/css/theme.css").toExternalForm());
+            pane.getStylesheets().add(getClass().getResource(currentThemeCss()).toExternalForm());
         } catch (Exception ignored) {}
     }
 
     private void applyStylesheet(Scene scene) {
         try {
-            scene.getStylesheets().add(
-                getClass().getResource("/uptc/edu/co/file_explorer_doj/css/theme.css").toExternalForm());
+            scene.getStylesheets().add(getClass().getResource(currentThemeCss()).toExternalForm());
         } catch (Exception ignored) {}
     }
 }
