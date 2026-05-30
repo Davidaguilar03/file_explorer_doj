@@ -2,6 +2,7 @@ module uptc.edu.co.file_explorer_doj {
     requires javafx.controls;
     requires javafx.fxml;
     requires javafx.graphics;
+    requires java.desktop;
 
     opens uptc.edu.co.file_explorer_doj to javafx.fxml;
     opens uptc.edu.co.file_explorer_doj.controller to javafx.fxml;
