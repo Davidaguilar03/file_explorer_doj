@@ -1,5 +1,21 @@
 package uptc.edu.co.file_explorer_doj.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.Deque;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -7,20 +23,32 @@ import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.input.KeyCode;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.CheckMenuItem;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.DialogPane;
+import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.SelectionMode;
+import javafx.scene.control.SeparatorMenuItem;
+import javafx.scene.control.TableCell;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputDialog;
+import javafx.scene.control.TreeCell;
+import javafx.scene.control.TreeItem;
+import javafx.scene.control.TreeView;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import uptc.edu.co.file_explorer_doj.model.FileItem;
 import uptc.edu.co.file_explorer_doj.service.FileCommandService;
 import uptc.edu.co.file_explorer_doj.service.FileSearchService;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.*;
-import java.util.HashSet;
-import java.util.stream.Collectors;
 
 public class MainController {
 
@@ -51,6 +79,83 @@ public class MainController {
 
     private static final String DARK_CSS  = "/uptc/edu/co/file_explorer_doj/css/theme.css";
     private static final String LIGHT_CSS = "/uptc/edu/co/file_explorer_doj/css/theme-light.css";
+    private static final String ICON_ROOT = "/uptc/edu/co/file_explorer_doj/images/vivid/";
+    private static final String FOLDER_ICON = ICON_ROOT + "folder.png";
+    private static final String DEFAULT_FILE_ICON = ICON_ROOT + "default.png";
+    private static final int TABLE_ICON_SIZE = 20;
+    private static final int TREE_ICON_SIZE = 16;
+
+    private static final Map<String, String> NAME_ICON_MAP = Map.ofEntries(
+        Map.entry("pom.xml", "pom.png"),
+        Map.entry("build.gradle", "gradle.png"),
+        Map.entry("build.gradle.kts", "gradle.png"),
+        Map.entry("settings.gradle", "gradle.png"),
+        Map.entry("settings.gradle.kts", "gradle.png"),
+        Map.entry("dockerfile", "config.png"),
+        Map.entry("readme.md", "md.png"),
+        Map.entry("license", "gpl.png")
+    );
+
+    private static final Map<String, String> EXT_ICON_MAP = Map.ofEntries(
+        Map.entry("txt", "txt.png"),
+        Map.entry("log", "log.png"),
+        Map.entry("md", "md.png"),
+        Map.entry("pdf", "pdf.png"),
+        Map.entry("doc", "doc.png"),
+        Map.entry("docx", "docx.png"),
+        Map.entry("xls", "xls.png"),
+        Map.entry("xlsx", "xlsx.png"),
+        Map.entry("ppt", "ppt.png"),
+        Map.entry("pptx", "pptx.png"),
+        Map.entry("csv", "csv.png"),
+        Map.entry("jpg", "image.png"),
+        Map.entry("jpeg", "image.png"),
+        Map.entry("png", "image.png"),
+        Map.entry("gif", "image.png"),
+        Map.entry("bmp", "image.png"),
+        Map.entry("webp", "image.png"),
+        Map.entry("svg", "svg.png"),
+        Map.entry("mp3", "mp3.png"),
+        Map.entry("wav", "wav.png"),
+        Map.entry("flac", "flac.png"),
+        Map.entry("ogg", "ogg.png"),
+        Map.entry("aac", "aac.png"),
+        Map.entry("mp4", "mp4.png"),
+        Map.entry("avi", "avi.png"),
+        Map.entry("mkv", "mkv.png"),
+        Map.entry("mov", "mov.png"),
+        Map.entry("wmv", "wmv.png"),
+        Map.entry("zip", "zip.png"),
+        Map.entry("rar", "rar.png"),
+        Map.entry("7z", "7z.png"),
+        Map.entry("tar", "tar.png"),
+        Map.entry("gz", "gz.png"),
+        Map.entry("exe", "exe.png"),
+        Map.entry("msi", "msi.png"),
+        Map.entry("dll", "dll.png"),
+        Map.entry("bat", "bat.png"),
+        Map.entry("cmd", "cmd.png"),
+        Map.entry("ps1", "ps1.png"),
+        Map.entry("sh", "sh.png"),
+        Map.entry("java", "java.png"),
+        Map.entry("class", "class.png"),
+        Map.entry("py", "py.png"),
+        Map.entry("js", "js.png"),
+        Map.entry("ts", "ts.png"),
+        Map.entry("html", "html.png"),
+        Map.entry("htm", "html.png"),
+        Map.entry("css", "css.png"),
+        Map.entry("json", "json.png"),
+        Map.entry("xml", "xml.png"),
+        Map.entry("yml", "yml.png"),
+        Map.entry("yaml", "yaml.png"),
+        Map.entry("sql", "sql.png"),
+        Map.entry("ini", "ini.png"),
+        Map.entry("properties", "config.png"),
+        Map.entry("env", "config.png")
+    );
+
+    private final Map<String, Image> iconCache = new HashMap<>();
     private boolean darkTheme = true;
 
     private String currentPath;
@@ -92,11 +197,28 @@ public class MainController {
         colDate.setCellValueFactory(d -> d.getValue().dateModifiedProperty());
 
         colIcon.setCellFactory(col -> new TableCell<>() {
+            private final ImageView iconView = createIconView(TABLE_ICON_SIZE);
             @Override
             protected void updateItem(String v, boolean empty) {
                 super.updateItem(v, empty);
-                setText(empty || v == null ? null : v);
-                setStyle("-fx-font-family: 'Segoe UI Emoji', 'Apple Color Emoji', sans-serif; -fx-font-size: 16px; -fx-alignment: CENTER;");
+                FileItem item = empty ? null : getTableRow().getItem();
+                if (item == null) {
+                    setText(null);
+                    setGraphic(null);
+                    return;
+                }
+
+                Image icon = loadIcon(resolveIconPath(item.getFile()), TABLE_ICON_SIZE);
+                if (icon != null) {
+                    iconView.setImage(icon);
+                    setGraphic(iconView);
+                    setText(null);
+                    setStyle("-fx-alignment: CENTER;");
+                } else {
+                    setGraphic(null);
+                    setText(v);
+                    setStyle("-fx-font-family: 'Segoe UI Emoji', 'Apple Color Emoji', sans-serif; -fx-font-size: 16px; -fx-alignment: CENTER;");
+                }
             }
         });
 
@@ -152,12 +274,24 @@ public class MainController {
         directoryTree.setShowRoot(false);
 
         directoryTree.setCellFactory(tv -> new TreeCell<>() {
+            private final ImageView iconView = createIconView(TREE_ICON_SIZE);
             @Override
             protected void updateItem(File file, boolean empty) {
                 super.updateItem(file, empty);
-                if (empty || file == null) { setText(null); return; }
+                if (empty || file == null) {
+                    setText(null);
+                    setGraphic(null);
+                    return;
+                }
                 String n = file.getName();
                 setText(n.isEmpty() ? file.getPath() : n);
+                Image icon = loadIcon(resolveIconPath(file), TREE_ICON_SIZE);
+                if (icon != null) {
+                    iconView.setImage(icon);
+                    setGraphic(iconView);
+                } else {
+                    setGraphic(null);
+                }
             }
         });
 
@@ -242,6 +376,58 @@ public class MainController {
             }
         }
         return false;
+    }
+
+    private String resolveIconPath(File file) {
+        if (file == null) return null;
+        if (file.isDirectory()) return FOLDER_ICON;
+
+        String name = file.getName().toLowerCase(Locale.ROOT);
+        String nameIcon = NAME_ICON_MAP.get(name);
+        if (nameIcon != null) {
+            String byName = ICON_ROOT + nameIcon;
+            if (resourceExists(byName)) return byName;
+        }
+
+        String ext = getExtension(name);
+        if (!ext.isEmpty()) {
+                String mapped = EXT_ICON_MAP.getOrDefault(ext, ext + ".png");
+            String byExt = ICON_ROOT + mapped;
+            if (resourceExists(byExt)) return byExt;
+        }
+
+        return resourceExists(DEFAULT_FILE_ICON) ? DEFAULT_FILE_ICON : null;
+    }
+
+    private String getExtension(String name) {
+        int dot = name.lastIndexOf('.');
+        if (dot < 0 || dot == name.length() - 1) return "";
+        return name.substring(dot + 1);
+    }
+
+    private boolean resourceExists(String resourcePath) {
+        return getClass().getResource(resourcePath) != null;
+    }
+
+    private Image loadIcon(String resourcePath, int size) {
+        if (resourcePath == null) return null;
+        String cacheKey = resourcePath + "#" + size;
+        Image cached = iconCache.get(cacheKey);
+        if (cached != null) return cached;
+        URL url = getClass().getResource(resourcePath);
+        if (url == null) return null;
+        Image image = new Image(url.toExternalForm(), size, size, true, true);
+        iconCache.put(cacheKey, image);
+        return image;
+    }
+
+    private ImageView createIconView(int size) {
+        ImageView view = new ImageView();
+        view.setFitWidth(size);
+        view.setFitHeight(size);
+        view.setPreserveRatio(true);
+        view.setSmooth(true);
+        return view;
     }
 
     // -------------------------------------------------------------------------
